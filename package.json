@@ -1,5 +1,5 @@
 {
-  "name": "GymPoint",
+  "name": "gympoint",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/charles00willian/GymPoint.git",
@@ -21,6 +21,7 @@
     "sucrase": "^3.10.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
