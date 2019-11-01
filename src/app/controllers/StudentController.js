@@ -6,10 +6,11 @@ class StudentController {
     // const { name, email, age } = req.body;
 
     const userExists = await Student.findOne({ where: { email: req.body.email } });
-
+    console.log(userExists);
     if (userExists) {
       return res.status(400).json({ error: 'User already exists' });
     }
+
 
     const {
       id, name, email, age,
@@ -19,6 +20,10 @@ class StudentController {
       id, name, email, age,
     });
   }
+
+  // async update(req, res){
+  //   const
+  // }
 }
 
 export default new StudentController();

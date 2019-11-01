@@ -21,6 +21,14 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    weight: {
+      type: Sequelize.DOUBLE,
+      allowNull: false,
+    },
+    height: {
+      type: Sequelize.DOUBLE,
+      allowNull: false,
+    },
     created_at: {
       type: Sequelize.DATE,
       allowNull: false,
