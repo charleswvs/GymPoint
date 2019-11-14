@@ -13,22 +13,29 @@ class StudentController {
     });
     // const { name, email, age } = req.body;
 
-    if (!await schema.isValid(req.body)) {
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation Failed' });
     }
 
-    const userExists = await Student.findOne({ where: { email: req.body.email } });
+    const userExists = await Student.findOne({
+      where: { email: req.body.email },
+    });
 
     if (userExists) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    const {
-      id, name, email, age, weight, height,
-    } = await Student.create(req.body);
+    const { id, name, email, age, weight, height } = await Student.create(
+      req.body
+    );
 
     return res.json({
-      id, name, email, age, weight, height,
+      id,
+      name,
+      email,
+      age,
+      weight,
+      height,
     });
   }
 
@@ -52,19 +59,27 @@ class StudentController {
       return res.status(400).json({ error: 'User not found' });
     }
 
-    if (req.body.newEmail && req.body.newEmail === req.body.email
-      && await Student.findOne({ where: { email: req.body.newEmail } })) {
+    if (
+      req.body.newEmail &&
+      req.body.newEmail === req.body.email &&
+      (await Student.findOne({ where: { email: req.body.newEmail } }))
+    ) {
       return res.status(400).json({ erro: 'Email is in use by other student' });
     }
 
     req.body.email = req.body.newEmail;
 
-    const {
-      id, name, email, age, weight, height,
-    } = await student.update(req.body);
+    const { id, name, email, age, weight, height } = await student.update(
+      req.body
+    );
 
     return res.json({
-      id, name, email, age, weight, height,
+      id,
+      name,
+      email,
+      age,
+      weight,
+      height,
     });
   }
   // async update(req, res){
