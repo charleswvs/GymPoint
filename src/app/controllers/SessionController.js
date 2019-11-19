@@ -13,7 +13,7 @@ class SessionContoller {
       password: Yup.string().required(),
     });
 
-    if (!await schema.isValid(req.body)) {
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
