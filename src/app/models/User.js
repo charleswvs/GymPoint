@@ -12,13 +12,15 @@ class User extends Model {
       },
       {
         sequelize,
-      },
+      }
     );
     // not react Hooks
     // create a password hash before saving
-    this.addHook('beforeSave', async (user) => {
+    this.addHook('beforeSave', async user => {
       // eslint-disable-next-line no-param-reassign
-      if (user.password) { user.password_hash = await bcrypt.hash(user.password, 8); }
+      if (user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8);
+      }
     });
     // return the used method
     return this;
