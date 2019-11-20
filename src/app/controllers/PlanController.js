@@ -73,7 +73,6 @@ class PlanController {
   async delete(req, res) {
     const plan = await Plan.findByPk(req.params.id);
 
-    console.log(plan);
     plan.deleted_at = new Date();
 
     await plan.save();
