@@ -3,6 +3,15 @@ import * as Yup from 'yup';
 import Student from '../models/Student';
 
 class StudentController {
+  async index(req, res) {
+    const student = await Student.findAll({
+      attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
+      order: ['name'],
+    });
+
+    return res.json(student);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string().required(),
@@ -41,8 +50,8 @@ class StudentController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      email: Yup.string().required(),
-      newEmail: Yup.string(),
+      oldEmail: Yup.string().required(),
+      email: Yup.string(),
       name: Yup.string(),
       age: Yup.number(),
       weight: Yup.number(),
