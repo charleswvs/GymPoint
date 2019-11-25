@@ -5,12 +5,16 @@ import StudentController from './app/controllers/StudentController';
 import authMiddleware from './app/middlewares/auth';
 import PlanController from './app/controllers/PlanController';
 import RegistrationController from './app/controllers/RegistrationController';
+import CheckingController from './app/controllers/CheckingController';
 
 const routes = new Router();
 
 // test route
 // routes.get('/', (req, res) => res.json({ hello: 'world' }));
 routes.post('/sessions', SessionController.store);
+
+routes.get('/students/:id/checkins', CheckingController.index);
+routes.post('/students/:id/checkins', CheckingController.store);
 
 routes.use(authMiddleware);
 
