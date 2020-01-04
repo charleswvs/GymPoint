@@ -33,12 +33,12 @@ routes.put('/help-orders/:id/answer', AcademyHelpOrderController.update);
 
 routes.get('/plans', PlanController.index);
 routes.post('/plans', PlanController.store);
-routes.put('/plans', PlanController.update);
-routes.delete('/plans/:id', PlanController.delete);
+routes.put('/plans/', PlanController.update);
+routes.delete('/plans/', PlanController.delete);
 
 routes.get('/registration', RegistrationController.index);
 routes.post('/registration', RegistrationController.store);
-routes.put('/registration/:id', RegistrationController.update);
-routes.delete('/registration/:id', RegistrationController.delete);
+routes.put('/registration/', RegistrationController.update);
+routes.delete('/registration/', RegistrationController.delete);
 
 export default routes;
