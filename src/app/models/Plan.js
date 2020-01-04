@@ -8,6 +8,12 @@ class Plan extends Model {
         duration: Sequelize.INTEGER,
         price: Sequelize.FLOAT,
         deleted_at: Sequelize.DATE,
+        final_price: {
+          type: Sequelize.VIRTUAL(Sequelize.FLOAT, ['duration', 'price']),
+          get() {
+            return this.get('duration') * this.get('price');
+          },
+        },
       },
       {
         sequelize,

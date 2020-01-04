@@ -1,11 +1,12 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Plan from '../models/Plan';
 
 class PlanController {
   async index(req, res) {
     const plans = await Plan.findAll({
       where: { deleted_at: null },
-      attributes: ['id', 'title', 'duration', 'price'],
+      attributes: ['id', 'title', 'duration', 'price', 'final_price'],
     });
     return res.json(plans);
   }
@@ -36,7 +37,7 @@ class PlanController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      oldTitle: Yup.string().required(),
+      id: Yup.number().required(),
       title: Yup.string().required(),
       duration: Yup.number().required(),
       price: Yup.number().required(),
@@ -49,7 +50,7 @@ class PlanController {
      * Find the plan that will be updated
      */
 
-    const plan = await Plan.findOne({ where: { title: req.body.oldTitle } });
+    const plan = await Plan.findByPk(req.body.id);
 
     if (!plan) {
       return res.status(400).json({ error: 'Plan does not exists' });
@@ -58,7 +59,11 @@ class PlanController {
     // TODO create a global function that finds if a Model already has a certain object stored in database
 
     const planExists = await Plan.findOne({
-      where: { title: req.body.title },
+      where: {
+        title: req.body.title,
+        id: { [Op.not]: req.body.id },
+        deleted_at: null,
+      },
     });
 
     if (planExists) {
@@ -71,7 +76,9 @@ class PlanController {
   }
 
   async delete(req, res) {
-    const plan = await Plan.findByPk(req.params.id);
+    console.log(req.body);
+
+    const plan = await Plan.findByPk(req.body.id);
 
     plan.deleted_at = new Date();
 
