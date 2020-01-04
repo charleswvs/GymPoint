@@ -14,7 +14,7 @@ class AcademyHelpOrderController {
           as: 'student',
           attributes: ['id', 'name'],
         },
-      ]
+      ],
     });
 
     return res.json(helpOrders);
@@ -28,10 +28,12 @@ class AcademyHelpOrderController {
     });
 
     if (!helpOrder) {
-      return res.status(401).json({error: 'This help order coudn\'t be found'});
+      return res
+        .status(401)
+        .json({ error: "This help order coudn't be found" });
     }
 
-    const {answer} = req.body;
+    const { answer } = req.body;
 
     const help = await helpOrder.update({
       answer,
